@@ -1,7 +1,12 @@
 import { PLATFORM } from 'platform'
+import { ChalkInstance } from 'shims/chalk-common'
 
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-const chalks = await (
+const chalks: {
+  chalk: ChalkInstance
+  chalkStdout: ChalkInstance
+  chalkStderr: ChalkInstance
+} = await (
   PLATFORM === 'web'
     ? import('shims/chalk-web')
     : PLATFORM === 'cli'

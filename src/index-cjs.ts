@@ -1,10 +1,15 @@
 import { PLATFORM } from 'platform'
+import { ChalkInstance } from 'shims/chalk-common'
 
 function throw_ (error: Error): never {
   throw error
 }
 
-let chalks: typeof import('shims/chalk-web')
+let chalks: {
+  chalk: ChalkInstance
+  chalkStdout: ChalkInstance
+  chalkStderr: ChalkInstance
+}
 /* eslint-disable no-useless-catch */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-var-requires */
