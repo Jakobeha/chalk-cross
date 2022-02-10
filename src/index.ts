@@ -10,7 +10,10 @@ const chalks: {
   PLATFORM === 'web'
     ? import('shims/chalk-web')
     : PLATFORM === 'cli'
-      ? import('shims/chalk-cli')
+      ? Promise.all([import('shims/chalk-cli'), import('os'), import('tty')]).then(([module, os, tty]) => {
+        module.initModule({ os, tty })
+        return module
+      })
       : Promise.reject(new Error(`Unsupported platform: ${PLATFORM}`))
 )
 /* eslint-enable @typescript-eslint/restrict-template-expressions */

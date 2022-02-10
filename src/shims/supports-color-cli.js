@@ -1,6 +1,9 @@
-import * as process from 'node:process'
-import * as os from 'node:os'
-import * as tty from 'node:tty'
+let os, tty
+
+export function initModule (imports) {
+  os = imports.os
+  tty = imports.tty
+}
 
 // From: https://github.com/sindresorhus/has-flag/blob/main/index.js
 function hasFlag (flag, argv = process.argv) {

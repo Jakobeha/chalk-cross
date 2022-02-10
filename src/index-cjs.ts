@@ -1,10 +1,6 @@
 import { PLATFORM } from 'platform'
 import { ChalkInstance } from 'shims/chalk-common'
 
-function throw_ (error: Error): never {
-  throw error
-}
-
 let chalks: {
   chalk: ChalkInstance
   chalkStdout: ChalkInstance
@@ -14,12 +10,16 @@ let chalks: {
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-var-requires */
 try {
-  chalks =
-    PLATFORM === 'web'
-      ? require('shims/chalk-web')
-      : PLATFORM === 'cli'
-        ? require('shims/chalk-cli')
-        : throw_(new Error(`Unsupported platform: ${PLATFORM}`))
+  if (PLATFORM === 'web') {
+    chalks = require('shims/chalk-web')
+  } else if (PLATFORM === 'cli') {
+    const module = require('shims/chalk-cli')
+    module.initModule({ os: require('os'), tty: require('tty') })
+    chalks = module
+  } else {
+    // noinspection ExceptionCaughtLocallyJS
+    throw new Error(`Unsupported platform: ${PLATFORM}`)
+  }
 } catch (error) {
   // Try block is needed to suppress esbuild warning
   throw error
