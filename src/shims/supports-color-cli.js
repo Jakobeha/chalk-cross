@@ -166,10 +166,12 @@ function createSupportsColor (stream, options = {}) {
   return translateLevel(level)
 }
 
-const stdout = createSupportsColor({ isTTY: tty.isatty(1) })
-const stderr = createSupportsColor({ isTTY: tty.isatty(2) })
-export const supportsColor = {
-  default: stdout,
-  stdout,
-  stderr
+export function supportsColor () {
+  const stdout = createSupportsColor({ isTTY: tty.isatty(1) })
+  const stderr = createSupportsColor({ isTTY: tty.isatty(2) })
+  return {
+    default: stdout,
+    stdout,
+    stderr
+  }
 }

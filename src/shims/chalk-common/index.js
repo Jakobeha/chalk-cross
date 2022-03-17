@@ -30,6 +30,9 @@ const chalkFactory = level => {
 
   Object.setPrototypeOf(chalk, createChalk.prototype)
 
+  chalk.openEscape = ''
+  chalk.closeEscape = ''
+
   return chalk
 }
 
@@ -147,6 +150,9 @@ const createBuilder = (self, _styler, _isEmpty) => {
   builder[GENERATOR] = self
   builder[STYLER] = _styler
   builder[IS_EMPTY] = _isEmpty
+
+  builder.openEscape = _styler.openAll
+  builder.closeEscape = _styler.closeAll
 
   return builder
 }

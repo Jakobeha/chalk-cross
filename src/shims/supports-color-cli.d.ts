@@ -5,4 +5,4 @@ export declare function initModule (imports: {
   tty: typeof import('tty')
 }): void
 
-export declare const supportsColor: ColorSupport
+export declare function supportsColor (): ColorSupport

@@ -73,6 +73,9 @@ export type Modifiers =
 export interface ChalkInstance {
   (...text: unknown[]): string
 
+  openEscape: string
+  closeEscape: string
+
   /**
    The color support for Chalk.
 
